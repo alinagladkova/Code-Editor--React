@@ -1,0 +1,33 @@
+.selector {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__title {
+    margin-right: 5px;
+  }
+  &__list {
+    display: none;
+    position: absolute;
+    max-height: 100px;
+    top: 44px;
+    left: 0;
+    border: 1px solid #d5d8dd;
+    z-index: 11;
+    width: 100%;
+    border-top: none;
+    overflow-y: auto;
+    box-shadow: 0px 4px 8px #d5d8dd;
+    font-size: 16px;
+    background-color: #fff;
+  }
+  &__option {
+    margin: 5px;
+    &:hover {
+      background-color: #d5d8dd;
+    }
+  }
+}
+
+.selector__list--open {
+  display: block;
+}

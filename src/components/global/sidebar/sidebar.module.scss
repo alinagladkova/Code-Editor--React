@@ -1,0 +1,47 @@
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25%;
+  height: 100vh;
+  background-color: #fff;
+  border-right: 1px solid #d5d8dd;
+  z-index: 10;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #d5d8dd;
+  }
+  &__text {
+    font-weight: 500;
+    font-size: 18px;
+  }
+  &__control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+  }
+  &__search {
+    flex-basis: 100%;
+    margin-right: 10px;
+  }
+  &__filter {
+    display: none;
+  }
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.sidebar__filter--open {
+  display: block;
+}

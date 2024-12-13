@@ -1,0 +1,18 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px auto;
+  &__task-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__btn {
+    margin-right: 10px;
+  }
+  &__task-run {
+  }
+  &__theme-switcher {
+  }
+}

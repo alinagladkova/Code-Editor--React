@@ -1,0 +1,14 @@
+.filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 16px;
+  &__section {
+    flex-basis: 33.3%;
+    position: relative;
+    padding: 10px 20px;
+    margin: auto 4px;
+    border-radius: 10px;
+    border: 1px solid rgb(214, 214, 214);
+  }
+}
