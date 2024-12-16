@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  border: 1px solid #d5d8dd;
+  border: 1px solid var(--border-color);
 }
 
 .btn--close,
@@ -21,23 +21,34 @@
   position: absolute;
   right: 10px;
   &:hover {
-    // color: aqua;
+    color: var(--button-hover-color);
+  }
+}
+.btn--close,
+.btn--filter {
+  &:hover {
+    color: var(--button-background-hover-color);
   }
 }
 
 .btn--openSidebar,
-.btn--run {
+.btn--run,
+.btn--clearFilter {
   padding: 5px 10px;
   &:hover {
-    box-shadow: 2px 2px 3px grey;
+    box-shadow: 2px 2px 3px rgb(63, 63, 63);
+    background-color: var(--button-background-hover-color);
+    color: var(--button-hover-color);
   }
 }
 
-.btn--switchLeft,
-.btn--switchRight,
+.btn--clearFilter {
+  width: 100%;
+}
+
 .btn--switchTheme {
   padding: 5px;
   &:hover {
-    background-color: rgb(192, 188, 188);
+    background-color: var(--button-background-hover-color);
   }
 }

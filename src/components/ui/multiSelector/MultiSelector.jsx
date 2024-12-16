@@ -8,7 +8,7 @@ import { BsChevronDown } from "react-icons/bs";
 import { BsChevronUp } from "react-icons/bs";
 
 //крестик в поиске не чистит поле ввода
-export default function MultiSelector({ title }) {
+export default function MultiSelector({ title, handler }) {
   const [tags, setTags] = useState([]);
   const [isShown, setIsShown] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -35,7 +35,7 @@ export default function MultiSelector({ title }) {
     setInputValue(inputValue);
   };
 
-  //выбираем опцию(tag) из списка и добавляем в поле
+  //выбираем опцию(tag) из списка и добавляем в массив
   const handleSelectTag = (newTag) => {
     //проверяем нет ли такого же тэга в массиве
     const checkTagAdded = selectedOptions.find((tag) => tag.id === newTag.id);
@@ -44,6 +44,11 @@ export default function MultiSelector({ title }) {
       setSelectedOptions((prev) => [...prev, ...addedTags]);
     }
   };
+
+  //отправляем выбранные тэги в родителя, чтобы по ним отфильтровать список задач
+  useEffect(() => {
+    handler(selectedOptions.map((tag) => tag.name.toLowerCase()));
+  }, [selectedOptions]);
 
   //чистим выбранные опции
   const clearSelectedOptions = () => {
@@ -71,12 +76,13 @@ export default function MultiSelector({ title }) {
   return (
     <div className={cn(styles.multiselect)}>
       <div className={cn(styles[`multiselect__control`])}>
-        <p className={cn(styles[`multiselect__title`])}>{title}</p>
-        {console.log(selectedOptions.length)}
-        <div className={cn(styles[`multiselect__tags-number`], selectedOptions.length > 0 ? styles[`multiselect__tags-number--active`] : "")}>
-          <p>{selectedOptions.length}</p>
-          <div className={cn(styles[`multiselect__tags-number-remove`])}>
-            <Button use="close" icon={<IoMdClose />} handler={clearSelectedOptions} />
+        <div className={cn(styles[`multiselect__title`])}>
+          <p>{title}</p>
+          <div className={cn(styles[`multiselect__tags-number`], selectedOptions.length > 0 ? styles[`multiselect__tags-number--active`] : "")}>
+            <p>{selectedOptions.length}</p>
+            <div className={cn(styles[`multiselect__tags-number-remove`])}>
+              <Button use="close" icon={<IoMdClose />} handler={clearSelectedOptions} />
+            </div>
           </div>
         </div>
         <Button use="close" icon={isShown ? <BsChevronDown /> : <BsChevronUp />} handler={setStateIsShown} />

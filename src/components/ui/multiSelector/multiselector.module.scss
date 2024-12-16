@@ -1,5 +1,8 @@
 .multiselect {
   &__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-right: 5px;
   }
   &__control {
@@ -12,6 +15,7 @@
     justify-content: center;
     align-items: center;
     display: none;
+    margin-left: 5px;
   }
   &__tags-number-remove {
     margin-left: 3px;
@@ -21,29 +25,20 @@
     flex-wrap: wrap;
     width: 100%;
   }
-  &__tag {
-    display: flex;
-    align-items: center;
-    border: 1px solid #99d5ff;
-    border-radius: 4px;
-    padding: 4px;
-    margin: 4px 2px;
-    background-color: #e5f4ff;
-  }
   &__options {
     display: none;
     position: absolute;
     width: 100%;
     top: 44px;
     left: 0;
-    border: 1px solid #d5d8dd;
+    border: 1px solid var(--border-color);
     border-top: none;
     max-height: 150px;
     overflow-y: auto;
     z-index: 11;
-    box-shadow: 0px 4px 8px #d5d8dd;
+    box-shadow: 0px 4px 8px var(--border-color);
     font-size: 16px;
-    background-color: #fff;
+    background-color: var(--background-color);
   }
   &__options-search {
     margin: 5px;
@@ -64,11 +59,11 @@
 }
 
 .multiselect__option--selected {
-  background-color: #babcbe;
+  background-color: var(--accent-color);
 }
 
 .multiselect__option:hover {
-  background-color: #d5d8dd;
+  background-color: var(--accent-color);
 }
 
 .multiselect__tags-number--active {
@@ -76,7 +71,7 @@
   height: 20px;
   width: 40px;
   border-radius: 10px;
-  background-color: #d5d8dd;
+  border: 1px solid var(--border-color);
   text-align: center;
   font-size: 14px;
 }

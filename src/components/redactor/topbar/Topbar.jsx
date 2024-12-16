@@ -6,25 +6,24 @@ import { BsChevronLeft } from "react-icons/bs";
 import { BsChevronRight } from "react-icons/bs";
 import { CiLight } from "react-icons/ci";
 import { MdLightMode } from "react-icons/md";
-import { useState } from "react";
+import { useTheme } from "../../../useTheme";
 
-export default function Topbar() {
-  const [isSidebarActive, setIsSidebarActive] = useState(false);
+export default function Topbar({ handler }) {
+  const { theme, setTheme } = useTheme("light");
 
-  //делаем функцию открыть закрыть сайдбар
+  const handleOpenSidebar = () => {
+    handler(true);
+  };
+
+  const handleThemeChange = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+  };
 
   return (
     <div className={cn(styles.topbar)}>
       <div className={cn(styles[`topbar__task-control`])}>
         <div className={cn(styles[`topbar__btn`])}>
-          {/* handler={() => setIsSidebarActive(true)} */}
-          <Button use="openSidebar" text="Task list" />
-        </div>
-        <div className={cn(styles[`topbar__btn`])}>
-          <Button use="switchLeft" icon={<BsChevronLeft />} />
-        </div>
-        <div className={cn(styles[`topbar__btn`])}>
-          <Button use="switchRight" icon={<BsChevronRight />} />
+          <Button use="openSidebar" text="Task list" handler={handleOpenSidebar} />
         </div>
       </div>
       <div className={cn(styles[`topbar__task-run`])}>
@@ -35,9 +34,16 @@ export default function Topbar() {
       <div className={cn(styles[`topbar__theme-switcher`])}>
         <div className={cn(styles[`topbar__btn`])}>
           {/* <MdLightMode /> */}
-          <Button use="switchTheme" icon={<CiLight />} />
+          <Button use="switchTheme" icon={<CiLight />} handler={handleThemeChange} />
         </div>
       </div>
     </div>
   );
 }
+
+// <div className={cn(styles[`topbar__btn`])}>
+//   <Button use="switchLeft" icon={<BsChevronLeft />} />
+// </div>
+// <div className={cn(styles[`topbar__btn`])}>
+//   <Button use="switchRight" icon={<BsChevronRight />} />
+// </div>

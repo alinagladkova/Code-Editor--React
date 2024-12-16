@@ -1,18 +1,22 @@
 .sidebar {
+  opacity: 0;
+  visibility: hidden;
   position: absolute;
   top: 0;
   left: 0;
   width: 25%;
   height: 100vh;
-  background-color: #fff;
-  border-right: 1px solid #d5d8dd;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-right: 1px solid var(--border-color);
+  transition: all 0.5s ease;
   z-index: 10;
   &__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    border-bottom: 1px solid #d5d8dd;
+    border-bottom: 1px solid var(--border-color);
   }
   &__text {
     font-weight: 500;
@@ -31,6 +35,15 @@
   &__filter {
     display: none;
   }
+  &__list {
+  }
+  &__task {
+    &:hover {
+      background-color: var(--accent-color);
+      border-radius: 3px;
+    }
+    padding: 10px 20px;
+  }
   &__btn {
     display: flex;
     align-items: center;
@@ -40,6 +53,11 @@
       height: 20px;
     }
   }
+}
+
+.sidebar--open {
+  opacity: 1;
+  visibility: visible;
 }
 
 .sidebar__filter--open {

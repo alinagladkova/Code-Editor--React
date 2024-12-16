@@ -11,13 +11,43 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* dark theme */
+html[data-theme="dark"] {
+  --button-background-hover-color: #9d34da;
+  --button-hover-color: #f0e1f9;
+  --border-color: #585858;
+  --background-color: #202020;
+  --text-color: #fff;
+  --accent-color: #9d34da;
+  --accent-green-color: #52c41a;
+  --accent-yellow-color: #ebcc1e;
+  --accent-red-color: #d60040;
+}
+
+/* light theme */
+html[data-theme="light"] {
+  --button-background-hover-color: #9d34da;
+  --button-hover-color: #f0e1f9;
+  --border-color: #d5d8dd;
+  --background-color: #fff;
+  --text-color: #000;
+  --accent-color: #f0e1f9;
+  --accent-green-color: #1e8142;
+  --accent-yellow-color: #f5ab23;
+  --accent-red-color: #f3044cfd;
+}
+
 #root {
   max-width: 1920px;
   margin: 0 auto;
   overflow: hidden;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.5s ease;
 }
 
 .app {
   max-width: 1890px;
+  margin: 0 auto;
   padding: 0 15px;
 }

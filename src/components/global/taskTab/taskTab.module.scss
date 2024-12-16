@@ -1,0 +1,20 @@
+.task {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__name {
+    font-weight: 500;
+  }
+  &__level {
+  }
+}
+.task__level--easy {
+  color: var(--accent-green-color);
+}
+.task__level--medium {
+  color: var(--accent-yellow-color);
+}
+.task__level--hard {
+  color: var(--accent-red-color);
+}
