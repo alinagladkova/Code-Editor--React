@@ -4,45 +4,61 @@ import { useEffect, useState } from "react";
 import Button from "../../ui/button/Button";
 import Input from "../../ui/input/Input";
 import TaskTab from "../taskTab/TaskTab";
-import Filter from "../../ui/filter/Filter";
+import Filter from "../filter/Filter";
 
 import { IoMdClose } from "react-icons/io";
 import { CiFilter } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 
-export default function Sidebar({ isOpen, handleClose }) {
+export default function Sidebar({ isOpen, handleClose, handler }) {
   const [isClosed, setIsClosed] = useState(isOpen);
   const [inputValue, setInputValue] = useState("");
   const [isFilterOpen, setFilterIsOpen] = useState(false);
-  const [selectedOptions, setselectedOptions] = useState([]);
-  const [taskArray, setTaskArray] = useState([]);
+  const [selectedOptions, setselectedOptions] = useState(null);
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   setIsClosed(!isOpen);
+  // }, [isClosed]);
+
+  //закрытие сайдбара на крестик
   const setStateIsClosed = () => {
     setIsClosed(!isOpen);
     handleClose(!isOpen);
   };
 
+  //получаем ввод поисковика
   const searchHandler = (inputValue) => {
     setInputValue(inputValue);
   };
 
+  //отображение фильтра
   const showFilter = () => {
     setFilterIsOpen((prev) => !prev);
   };
 
+  //получаем данные из фильтра
   const getFilterData = (options) => {
-    setselectedOptions((prev) => [...prev, ...options].filter((value, i, arr) => arr.indexOf(value) === i));
+    setselectedOptions((prev) => Object.assign({ ...prev, ...options }));
   };
 
+  const handleSelectTask = (task) => {
+    // setTimeout(() => {
+    handler(task);
+    // }, 0);
+    //   setIsClosed(false); // Закрываем сайдбар после небольшой задержки
+  };
+
+  //загружаем задачи с сервера
   useEffect(() => {
-    fetch("http://localhost:5000/tasksArray/")
-      .then((response) => response.json())
-      .then((data) => {
-        setTaskArray(data);
-      })
-      .catch((error) => {
-        console.error("Ошибка:", error);
-      });
+    const fetchTasks = async () => {
+      const response = await fetch("/api/tasks");
+      const data = await response.json();
+      setTasks(data.tasks);
+      setLoading(false);
+    };
+    fetchTasks();
   }, []);
 
   return (
@@ -65,24 +81,28 @@ export default function Sidebar({ isOpen, handleClose }) {
         <Filter handlerFilter={getFilterData} />
       </div>
       <ul className={cn(styles[`sidebar__list`])}>
-        {taskArray
+        {tasks
           .filter((task) => {
             return task.name.toLowerCase().includes(inputValue);
           })
           .filter((task) => {
-            if (selectedOptions.length) {
-              console.log(selectedOptions);
-              return (
-                selectedOptions.includes(task.level) &&
-                (selectedOptions.includes(task.level) || selectedOptions.filter((value) => task.tags.includes(value))) &&
-                selectedOptions.filter((value) => task.tags.includes(value))
-              );
-            }
-            return true;
+            // Фильтрация по тегам
+            const hasMatchingTags = selectedOptions.tags.length === 0 || selectedOptions.tags.some((tag) => task.tags.includes(tag));
+            // Фильтрация по уровню сложности
+            const matchesDifficulty = !selectedOptions.difficulty || selectedOptions.difficulty === task.level;
+            // Возвращаем true, если задача соответствует обоим критериям
+            return hasMatchingTags && matchesDifficulty;
           })
           .map((task) => (
-            <div className={cn(styles[`sidebar__task`])} key={task.id}>
+            <div
+              className={cn(styles[`sidebar__task`])}
+              key={task.id}
+              onClick={() => {
+                handleSelectTask(task);
+              }}
+            >
               <TaskTab task={task} />
+              {/* {console.log(task)} */}
             </div>
           ))}
       </ul>

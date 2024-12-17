@@ -14,10 +14,19 @@ export default function Input({ type, placeholder, use, icon, inputHandler = () 
     }
   };
 
+  //очищаем инпут при нажатии на крестик
+  const handleClear = () => {
+    setValue("");
+    inputHandler("");
+    if (handler) {
+      handler();
+    }
+  };
+
   return (
     <div className={cn(styles.input)}>
-      <input className={cn(styles[`input__field`])} type={type} placeholder={placeholder} onChange={inputAction}></input>
-      <Button use={use} icon={icon} handler={handler}></Button>
+      <input className={cn(styles[`input__field`])} type={type} value={value} placeholder={placeholder} onChange={inputAction}></input>
+      <Button use={use} icon={icon} handler={handleClear}></Button>
     </div>
   );
 }

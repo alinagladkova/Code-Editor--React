@@ -5,27 +5,28 @@ import { BsChevronDown } from "react-icons/bs";
 import { BsChevronUp } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import Button from "../button/Button";
+import { SiPanasonic } from "react-icons/si";
 
-export default function Selector({ title, options, handler }) {
+export default function Selector({ title, options, handler = () => {} }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("");
 
+  //открываем окно опций при нажатии на v
   const openOptions = () => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleSelectLevel = (newLevel) => {
-    const checkLevelsAdded = selectedOptions.find((level) => level === newLevel);
-    if (!checkLevelsAdded) {
-      const addedLevels = options.filter((option) => option === newLevel);
-      setSelectedOptions((prev) => [...prev, ...addedLevels]);
-    }
+  //получаем опцию из списка
+  const handleSelectOption = (e) => {
+    setSelectedOption(e.target.innerHTML);
+    setIsOpen(false);
   };
 
   useEffect(() => {
-    handler(selectedOptions.map((level) => level.toLowerCase()));
-  }, [selectedOptions]);
+    handler(selectedOption.toLowerCase());
+  }, [selectedOption]);
 
+  //обработчик клика на Esc
   useEffect(() => {
     const handleEscapeKey = (event) => {
       if (event.code === "Escape") {
@@ -46,9 +47,9 @@ export default function Selector({ title, options, handler }) {
         <ul className={cn(styles[`selector__list`], !isOpen ? styles[`selector__list`] : styles[`selector__list--open`])}>
           {options.map((option) => (
             <li
-              className={cn(styles[`selector__option`], selectedOptions.includes(option) ? styles[`selector__option--selected`] : "")}
+              className={cn(styles[`selector__option`], selectedOption === option ? styles[`selector__option--selected`] : "")}
               key={option}
-              onClick={() => handleSelectLevel(option)}
+              onClick={(e) => handleSelectOption(e)}
             >
               {option}
             </li>

@@ -1,0 +1,21 @@
+.redactor-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  height: 90vh;
+
+  &__description {
+    flex-basis: 50%;
+    margin-right: 10px;
+  }
+  &__action {
+    flex-basis: 50%;
+  }
+  &__code-area {
+    margin-bottom: 10px;
+  }
+  &__code-result {
+    margin-bottom: 10px;
+  }
+}

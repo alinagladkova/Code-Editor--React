@@ -1,0 +1,25 @@
+.result {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-color);
+    span {
+      margin-left: 10px;
+    }
+  }
+  &__title {
+    display: flex;
+    align-items: center;
+  }
+  &__btn {
+    margin: 0 2px;
+  }
+  &__field {
+    margin: 0 20px;
+    padding: 10px 0;
+  }
+}

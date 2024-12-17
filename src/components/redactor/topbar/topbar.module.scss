@@ -3,17 +3,9 @@
   justify-content: space-between;
   align-items: center;
   margin: 20px auto;
-
   &__task-control {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-  &__btn {
-    margin: 0 2px;
-  }
-  &__task-run {
-  }
-  &__theme-switcher {
   }
 }

@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   width: 25%;
-  height: 100vh;
+  max-height: 100vh;
   background-color: var(--background-color);
   color: var(--text-color);
   border-right: 1px solid var(--border-color);
@@ -36,6 +36,8 @@
     display: none;
   }
   &__list {
+    height: 85vh;
+    overflow-y: scroll;
   }
   &__task {
     &:hover {
