@@ -8,7 +8,7 @@ import { BsChevronDown } from "react-icons/bs";
 import { BsChevronUp } from "react-icons/bs";
 
 //крестик в поиске не чистит поле ввода
-export default function MultiSelector({ title, options, handler }) {
+export default function MultiSelector({ title, options, serverError, handler }) {
   const [isShown, setIsShown] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -75,19 +75,27 @@ export default function MultiSelector({ title, options, handler }) {
           <Input use="closeOptionSearch" icon={<IoMdClose />} type="text" inputHandler={inputHandler} handler={() => setInputValue("")} />
         </div>
         <div className={cn(styles[`multiselect__options-list`])}>
-          {options
-            .filter((option) => {
-              if (inputValue !== undefined) return option.name.toLowerCase().includes(inputValue.toLowerCase());
-            })
-            .map((option) => (
-              <div
-                className={cn(styles[`multiselect__option`], selectedOptions.includes(option) ? styles[`multiselect__option--selected`] : "")}
-                key={option.id}
-                onClick={() => handleSelectTag(option)}
-              >
-                {option.name}
-              </div>
-            ))}
+          {serverError ? (
+            <div className={cn(styles[`multiselect__error`])}>
+              <p>Error: {serverError}.</p>
+            </div>
+          ) : options.length === 0 ? (
+            <p className={cn(styles[`multiselect__error`])}>No tags for now</p>
+          ) : (
+            options
+              .filter((option) => {
+                if (inputValue !== undefined) return option.name.toLowerCase().includes(inputValue.toLowerCase());
+              })
+              .map((option) => (
+                <div
+                  className={cn(styles[`multiselect__option`], selectedOptions.includes(option) ? styles[`multiselect__option--selected`] : "")}
+                  key={option.id}
+                  onClick={() => handleSelectTag(option)}
+                >
+                  {option.name}
+                </div>
+              ))
+          )}
         </div>
       </div>
     </div>

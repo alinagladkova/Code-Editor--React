@@ -16,7 +16,7 @@ export default function Sidebar({ isOpen, handleClose, handler }) {
   const [isFilterOpen, setFilterIsOpen] = useState(false);
   const [selectedOptions, setselectedOptions] = useState(null);
   const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [serverError, setServerError] = useState("");
 
   // useEffect(() => {
   //   setIsClosed(!isOpen);
@@ -50,13 +50,34 @@ export default function Sidebar({ isOpen, handleClose, handler }) {
     //   setIsClosed(false); // Закрываем сайдбар после небольшой задержки
   };
 
+  const filterTasks = (task) => {
+    const hasMatchingTags = selectedOptions.tags.length === 0 || selectedOptions.tags.some((tag) => task.tags.includes(tag));
+    const matchesDifficulty = !selectedOptions.difficulty || selectedOptions.difficulty === task.level;
+    return hasMatchingTags && matchesDifficulty;
+  };
+
   //загружаем задачи с сервера
   useEffect(() => {
     const fetchTasks = async () => {
-      const response = await fetch("/api/tasks");
-      const data = await response.json();
-      setTasks(data.tasks);
-      setLoading(false);
+      try {
+        // fetch("/api/tasks")
+        //   .then((res) => res.json())
+        //   .then((json) => console.log(json));
+        const response = await fetch("api/tasks");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        // console.log(response);
+
+        // console.log(response);
+        const data = await response.json();
+
+        setTasks(data.tasks);
+      } catch (error) {
+        // console.log(error.message);
+
+        setServerError(error.message);
+      }
     };
     fetchTasks();
   }, []);
@@ -81,30 +102,33 @@ export default function Sidebar({ isOpen, handleClose, handler }) {
         <Filter handlerFilter={getFilterData} />
       </div>
       <ul className={cn(styles[`sidebar__list`])}>
-        {tasks
-          .filter((task) => {
-            return task.name.toLowerCase().includes(inputValue);
-          })
-          .filter((task) => {
-            // Фильтрация по тегам
-            const hasMatchingTags = selectedOptions.tags.length === 0 || selectedOptions.tags.some((tag) => task.tags.includes(tag));
-            // Фильтрация по уровню сложности
-            const matchesDifficulty = !selectedOptions.difficulty || selectedOptions.difficulty === task.level;
-            // Возвращаем true, если задача соответствует обоим критериям
-            return hasMatchingTags && matchesDifficulty;
-          })
-          .map((task) => (
-            <div
-              className={cn(styles[`sidebar__task`])}
-              key={task.id}
-              onClick={() => {
-                handleSelectTask(task);
-              }}
-            >
-              <TaskTab task={task} />
-              {/* {console.log(task)} */}
-            </div>
-          ))}
+        {/* {console.log(serverError)} */}
+        {serverError ? (
+          <div className={cn(styles[`sidebar__error`])}>
+            <p>Error: {serverError}.</p>
+            <p>Try again later.</p>
+          </div>
+        ) : tasks.length === 0 ? (
+          <p className={cn(styles[`sidebar__error`])}>No tasks for now</p>
+        ) : (
+          tasks
+            .filter((task) => {
+              return task.name.toLowerCase().includes(inputValue);
+            })
+            .filter((task) => filterTasks(task))
+            .map((task) => (
+              <div
+                className={cn(styles[`sidebar__task`])}
+                key={task.id}
+                onClick={() => {
+                  handleSelectTask(task);
+                }}
+              >
+                <TaskTab task={task} />
+                {/* {console.log(task)} */}
+              </div>
+            ))
+        )}
       </ul>
     </div>
   );

@@ -38,6 +38,7 @@
   &__list {
     height: 85vh;
     overflow-y: scroll;
+    padding-bottom: 20px;
   }
   &__task {
     &:hover {
@@ -54,6 +55,11 @@
       width: 20px;
       height: 20px;
     }
+  }
+  &__error {
+    margin: 20px auto;
+    text-align: center;
+    color: rgb(192, 192, 192);
   }
 }
 

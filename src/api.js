@@ -337,17 +337,17 @@ export function makeServer({ environment = "development" } = {}) {
         return schema.tasks.all();
       });
 
-      this.post("/execute", (schema, request) => {
-        let attrs = JSON.parse(request.requestBody);
-        const { language, code } = attrs;
-
-        // обработка ответа
-        if (code.includes("error")) {
-          return { status: "error", error: "SyntaxError: Unexpected token" };
-        }
-
-        return { status: "success", output: `Hello, world!\n` };
-      });
+      // this.post("/execute", (schema, request) => {
+      //   let attrs = JSON.parse(request.requestBody);
+      //   const { language, code } = attrs;
+      //   let post = schema.posts.find(request.params.id);
+      //   post.createComment(attrs);
+      //   // обработка ответа
+      //   if (code.includes("error")) {
+      //     return { status: "error", error: "SyntaxError: Unexpected token" };
+      //   }
+      //   return { status: "success", output: `Hello, world!\n` };
+      // });
     },
   });
 }

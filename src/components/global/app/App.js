@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Topbar from "../../redactor/topbar/Topbar";
 import Sidebar from "../sidebar/Sidebar";
 import RedactorWrapper from "../../redactor/redactorWrapper/RedactorWrapper";
-import { makeServer } from "../../../api";
+// import { makeServer } from "../../../api";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -28,7 +28,13 @@ function App() {
   };
 
   useEffect(() => {
-    makeServer();
+    // makeServer();
+    // if (process.env.NODE_ENV === "development") {
+    //   if (window.server) {
+    //     window.server.shutdown();
+    //   }
+    //   window.server = makeServer();
+    // }
   }, []);
 
   return (

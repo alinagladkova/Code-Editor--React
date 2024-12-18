@@ -11,7 +11,7 @@ export default function Filter({ handlerFilter }) {
   const [tags, setTags] = useState([]);
   const [tagsSelected, setTagsSelected] = useState([]);
   const [difficultySelected, setDifficultySelected] = useState("");
-  const [loading, setLoading] = useState(true);
+  let [serverError, setServerError] = useState("");
 
   //получаем данные из селекторов
   const handleGetSelectorValue = (option) => {
@@ -31,10 +31,16 @@ export default function Filter({ handlerFilter }) {
   //получаем от сервера информацию по тэгам задач
   useEffect(() => {
     const fetchTags = async () => {
-      const response = await fetch("/api/tags");
-      const data = await response.json();
-      setTags(data.tags);
-      setLoading(false);
+      try {
+        const response = await fetch("/api/tags");
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setTags(data.tags);
+      } catch (error) {
+        setServerError(error.message);
+      }
     };
     fetchTags();
   }, []);
@@ -43,10 +49,6 @@ export default function Filter({ handlerFilter }) {
   useEffect(() => {
     handlerFilter({ tags: tagsSelected, difficulty: difficultySelected });
   }, [tagsSelected, difficultySelected]);
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
 
   const clearFilter = () => {
     setDifficultySelected("");
@@ -60,7 +62,7 @@ export default function Filter({ handlerFilter }) {
           <Selector name="difficulty" title="Difficulty" options={difficultyOptions} handler={handleGetSelectorValue} />
         </div>
         <div className={cn(styles[`filter__section`])}>
-          <MultiSelector title="Tags" options={tags} handler={handleGetSelectorValue} />
+          <MultiSelector title="Tags" options={tags} serverError={serverError} handler={handleGetSelectorValue} />
         </div>
       </div>
       <div className={cn(styles[`filter__btn`])}>

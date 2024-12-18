@@ -13,8 +13,7 @@ export default function CodeArea({ theme, handleGetValue }) {
 
   const onMountAction = (editor) => {
     editorRef.current = editor;
-    console.log(editorRef.current);
-
+    // console.log(editorRef.current);
     editor.focus();
   };
 
@@ -25,7 +24,7 @@ export default function CodeArea({ theme, handleGetValue }) {
 
   useEffect(() => {
     handleGetValue({ code: editorRef, language: language });
-  }, []);
+  }, [language, editorRef]);
 
   return (
     <div className={cn(styles[`code-area`])}>

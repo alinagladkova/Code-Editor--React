@@ -4,13 +4,13 @@
   align-items: flex-start;
   margin-bottom: 20px;
   height: 90vh;
-
   &__description {
     flex-basis: 50%;
     margin-right: 10px;
   }
   &__action {
     flex-basis: 50%;
+    padding-bottom: 20px;
   }
   &__code-area {
     margin-bottom: 10px;

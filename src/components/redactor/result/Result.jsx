@@ -2,25 +2,29 @@ import cn from "classnames";
 import styles from "./result.module.scss";
 import { GrStatusGood } from "react-icons/gr";
 import Button from "../../ui/button/Button";
+import { executeCode } from "../../../server";
+import { useState } from "react";
 
 export default function Result({ codeValue }) {
-  console.log(codeValue);
+  const [output, setOutput] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState(null);
+  const [isError, setIsError] = useState(false);
 
   const runCode = async () => {
-    // const sourceCode = codeValue.code.current.getValue();
-    // if (!sourceCode) return;
+    const sourceCode = codeValue.code.current.getValue();
+    const language = codeValue.language;
+    if (!sourceCode) return;
     try {
-      const response = await fetch("/api/execute", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ language: codeValue.language, code: codeValue.code }),
-      });
-
-      const result = await response.json();
-      console.log(result); // Обработка результата
-    } catch {}
+      setIsLoading(true);
+      const { run: result } = await executeCode(language, sourceCode);
+      setOutput(result.output.split("\n"));
+      result.stderr ? setIsError(true) : setIsError(false);
+    } catch (error) {
+      setServerError(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -31,10 +35,21 @@ export default function Result({ codeValue }) {
           <span>Result</span>
         </div>
         <div className={cn(styles[`result__btn`])}>
-          <Button use="run" text="Run code" handler={runCode} />
+          <Button use="run" text={`${isLoading ? "Loading..." : "Run Code"}`} handler={runCode} />
         </div>
       </div>
-      <div className={cn(styles[`result__field`])}></div>
+      <div className={cn(styles[`result__field`], isError ? styles[`result__field--error`] : "")}>
+        {serverError ? (
+          <div className={cn(styles[`sidebar__error`])}>
+            <p>Error: {serverError}.</p>
+            <p>Try again later.</p>
+          </div>
+        ) : output ? (
+          output.map((line, i) => <p key={i}>{line}</p>)
+        ) : (
+          <span>Click "Run Code" to see the output here</span>
+        )}
+      </div>
     </div>
   );
 }

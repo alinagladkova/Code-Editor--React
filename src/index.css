@@ -38,6 +38,22 @@ html[data-theme="light"] {
   --accent-red-color: #f3044cfd;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--button-background-hover-color);
+}
+
 #root {
   max-width: 1920px;
   min-height: 100%;
