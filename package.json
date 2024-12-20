@@ -2,7 +2,7 @@
   "name": "code-editor",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://alinagladkova.github.io/Code-Editor---React",
+  "homepage": "https://github.com/alinagladkova/Code-Editor--React.git",
   "dependencies": {
     "@monaco-editor/react": "^4.6.0",
     "axios": "^1.7.9",
