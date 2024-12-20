@@ -15,3 +15,11 @@
     color: var(--button-background-hover-color);
   }
 }
+
+@media (max-width: 500px) {
+  .language-selector {
+    &__selector-wrapper {
+      width: 100%;
+    }
+  }
+}

@@ -1,10 +1,10 @@
 import cn from "classnames";
 import styles from "./codeArea.module.scss";
 import { Editor } from "@monaco-editor/react";
+import { snippets } from "../../../mockData";
 import { useEffect, useRef, useState } from "react";
 import { RiCodeSSlashLine } from "react-icons/ri";
 import LanguageSelector from "../languageSelector/LanguageSelector";
-import { snippets } from "../../../mockData";
 
 export default function CodeArea({ theme, handleGetValue }) {
   const editorRef = useRef();
@@ -13,7 +13,6 @@ export default function CodeArea({ theme, handleGetValue }) {
 
   const onMountAction = (editor) => {
     editorRef.current = editor;
-    // console.log(editorRef.current);
     editor.focus();
   };
 

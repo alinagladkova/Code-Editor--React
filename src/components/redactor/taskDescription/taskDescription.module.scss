@@ -47,3 +47,11 @@
 .task-description__level--hard {
   color: var(--accent-red-color);
 }
+
+@media (max-width: 500px) {
+  .task-description {
+    &__level {
+      margin-right: 5px;
+    }
+  }
+}

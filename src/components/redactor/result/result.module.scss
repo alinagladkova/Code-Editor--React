@@ -26,6 +26,10 @@
     }
   }
 }
-.result__field--error {
+.result__field--error,
+.result__error {
   color: rgb(219, 57, 57);
+}
+.result__text {
+  color: var(--text-color);
 }

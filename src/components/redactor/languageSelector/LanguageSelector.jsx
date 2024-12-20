@@ -14,6 +14,7 @@ export default function LanguageSelector({ handleGetlanguage }) {
   useEffect(() => {
     handleGetlanguage(selectedLanguage);
   }, [selectedLanguage]);
+
   return (
     <div className={cn(styles[`language-selector`])}>
       <div className={cn(styles[`language-selector__selector-wrapper`])}>

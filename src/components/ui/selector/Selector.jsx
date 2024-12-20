@@ -5,7 +5,6 @@ import { BsChevronDown } from "react-icons/bs";
 import { BsChevronUp } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import Button from "../button/Button";
-import { SiPanasonic } from "react-icons/si";
 
 export default function Selector({ title, options, handler = () => {} }) {
   const [isOpen, setIsOpen] = useState(false);

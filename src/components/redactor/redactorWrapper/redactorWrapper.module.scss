@@ -13,9 +13,20 @@
     padding-bottom: 20px;
   }
   &__code-area {
+    flex-basis: 50%;
     margin-bottom: 10px;
   }
   &__code-result {
     margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 1440px) {
+  .redactor-wrapper {
+    display: block;
+    &__description {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
   }
 }

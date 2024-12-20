@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Topbar from "../../redactor/topbar/Topbar";
 import Sidebar from "../sidebar/Sidebar";
 import RedactorWrapper from "../../redactor/redactorWrapper/RedactorWrapper";
-// import { makeServer } from "../../../api";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,20 +21,8 @@ function App() {
   };
 
   const getTaskHandler = (task) => {
-    console.log(task);
-
     setSelectedTask(task);
   };
-
-  useEffect(() => {
-    // makeServer();
-    // if (process.env.NODE_ENV === "development") {
-    //   if (window.server) {
-    //     window.server.shutdown();
-    //   }
-    //   window.server = makeServer();
-    // }
-  }, []);
 
   return (
     <div className="app">

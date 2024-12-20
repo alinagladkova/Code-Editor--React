@@ -10,6 +10,8 @@ body {
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 /* dark theme */
@@ -59,8 +61,7 @@ html[data-theme="light"] {
   min-height: 100%;
   margin: 0 auto;
   overflow: auto;
-  background-color: var(--background-color);
-  color: var(--text-color);
+
   transition: background-color 0.5s ease;
 }
 
@@ -68,4 +69,10 @@ html[data-theme="light"] {
   max-width: 1890px;
   margin: 0 auto;
   padding: 0 15px;
+}
+
+@media (max-width: 1000px) {
+  body {
+    font-size: 14px;
+  }
 }

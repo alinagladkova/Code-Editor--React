@@ -40,9 +40,11 @@ export default function Result({ codeValue }) {
       </div>
       <div className={cn(styles[`result__field`], isError ? styles[`result__field--error`] : "")}>
         {serverError ? (
-          <div className={cn(styles[`sidebar__error`])}>
-            <p>Error: {serverError}.</p>
-            <p>Try again later.</p>
+          <div className={cn(styles[`result__error`])}>
+            <p>
+              {serverError.code}:{serverError.message}
+            </p>
+            <p className={cn(styles[`result__text`])}>Try again later.</p>
           </div>
         ) : output ? (
           output.map((line, i) => <p key={i}>{line}</p>)

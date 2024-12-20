@@ -2,16 +2,15 @@ import cn from "classnames";
 import styles from "./filter.module.scss";
 import Selector from "../../ui/selector/Selector";
 import MultiSelector from "../../ui/multiSelector/MultiSelector";
-import { useEffect, useState } from "react";
 import Button from "../../ui/button/Button";
+import { useEffect, useState } from "react";
+import { tags } from "../../../mockData";
 
 const difficultyOptions = ["Easy", "Medium", "Hard"];
 
 export default function Filter({ handlerFilter }) {
-  const [tags, setTags] = useState([]);
   const [tagsSelected, setTagsSelected] = useState([]);
   const [difficultySelected, setDifficultySelected] = useState("");
-  let [serverError, setServerError] = useState("");
 
   //получаем данные из селекторов
   const handleGetSelectorValue = (option) => {
@@ -27,23 +26,6 @@ export default function Filter({ handlerFilter }) {
       setDifficultySelected(option);
     }
   };
-
-  //получаем от сервера информацию по тэгам задач
-  useEffect(() => {
-    const fetchTags = async () => {
-      try {
-        const response = await fetch("/api/tags");
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setTags(data.tags);
-      } catch (error) {
-        setServerError(error.message);
-      }
-    };
-    fetchTags();
-  }, []);
 
   //передаем данные о выбранных задачах в родителя, чтобы изменить отображение списка
   useEffect(() => {
@@ -62,7 +44,7 @@ export default function Filter({ handlerFilter }) {
           <Selector name="difficulty" title="Difficulty" options={difficultyOptions} handler={handleGetSelectorValue} />
         </div>
         <div className={cn(styles[`filter__section`])}>
-          <MultiSelector title="Tags" options={tags} serverError={serverError} handler={handleGetSelectorValue} />
+          <MultiSelector title="Tags" options={tags} handler={handleGetSelectorValue} />
         </div>
       </div>
       <div className={cn(styles[`filter__btn`])}>

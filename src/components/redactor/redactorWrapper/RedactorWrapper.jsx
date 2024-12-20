@@ -6,8 +6,6 @@ import Result from "../result/Result";
 import { useState } from "react";
 
 export default function RedactorWrapper({ theme, task }) {
-  console.log(task);
-
   const [codeValue, setCodeValue] = useState({});
 
   const handleGetValue = (value) => {

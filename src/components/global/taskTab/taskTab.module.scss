@@ -5,8 +5,7 @@
   align-items: center;
   &__name {
     font-weight: 500;
-  }
-  &__level {
+    margin-right: 5px;
   }
 }
 .task__level--easy {
