@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/Code-Editor---React/static/css/main.8e268a1c.css",
-    "main.js": "/Code-Editor---React/static/js/main.7f7929b1.js",
-    "index.html": "/Code-Editor---React/index.html",
-    "main.8e268a1c.css.map": "/Code-Editor---React/static/css/main.8e268a1c.css.map",
-    "main.7f7929b1.js.map": "/Code-Editor---React/static/js/main.7f7929b1.js.map"
+    "main.css": "/Code-Editor--React/static/css/main.8e268a1c.css",
+    "main.js": "/Code-Editor--React/static/js/main.7f7929b1.js",
+    "index.html": "/Code-Editor--React/index.html",
+    "main.8e268a1c.css.map": "/Code-Editor--React/static/css/main.8e268a1c.css.map",
+    "main.7f7929b1.js.map": "/Code-Editor--React/static/js/main.7f7929b1.js.map"
   },
   "entrypoints": [
     "static/css/main.8e268a1c.css",
